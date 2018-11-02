@@ -53,11 +53,10 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties')
-if (properties.exists()) {
-    properties.newDataInputStream())
+File propertiesFile = rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(new FileInputStream(propertiesFile))
     bintray {
         user = properties.findProperty("bintray.user") ?: 'USER'
         key = properties.findProperty("bintray.apikey") ?: 'API_KEY'
