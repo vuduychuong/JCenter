@@ -55,26 +55,28 @@ artifacts {
 }
 
 Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+properties.load(project.rootProject.file('local.properties')
+if (properties.exists()) {
+    properties.newDataInputStream())
+    bintray {
+        user = properties.findProperty("bintray.user") ?: 'USER'
+        key = properties.findProperty("bintray.apikey") ?: 'API_KEY'
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-
-    configurations = ['archives']
-    pkg {
-        repo = bintrayRepo
-        name = bintrayName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        dryRun = false
-        publish = true
-        override = false
-        publicDownloadNumbers = true
-        version {
+        configurations = ['archives']
+        pkg {
+            repo = bintrayRepo
+            name = bintrayName
             desc = libraryDescription
+            websiteUrl = siteUrl
+            vcsUrl = gitUrl
+            licenses = allLicenses
+            dryRun = false
+            publish = true
+            override = false
+            publicDownloadNumbers = true
+            version {
+                desc = libraryDescription
+            }
         }
     }
 }
