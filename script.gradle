@@ -58,8 +58,8 @@ if (propertiesFile.exists()) {
     Properties properties = new Properties()
     properties.load(new FileInputStream(propertiesFile))
     bintray {
-        user = properties.findProperty("bintray.user") ?: 'USER'
-        key = properties.findProperty("bintray.apikey") ?: 'API_KEY'
+        user = properties.hasProperty("bintray.user") ? properties.getProperty("bintray.user") : 'USER'
+        key = properties.hasProperty("bintray.apikey") ? properties.getProperty("bintray.apikey") : 'API_KEY'
 
         configurations = ['archives']
         pkg {
